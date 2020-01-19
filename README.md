@@ -1,11 +1,11 @@
 # weather-minded
 Weather Minded application built with Node
 
-Download Folder
+1. Download Folder
 
-cd weather-minded
+2. cd weather-minded
 
-npm install
+3. npm install
 
-node server.js
+4. node server.js
 
