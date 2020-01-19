@@ -5,6 +5,15 @@ const axios = require('axios');
 
 const API_KEY = "5c5d57566fba5fb93fb1322045ed97f3";
 
+const forecasts = {
+    "partly cloudy": "https://media.giphy.com/media/VMVpwj0jtCEYo/giphy.gif",
+    "cloudy": "https://media.giphy.com/media/3o7rc6sa2RvKo8K5EI/giphy.gif",
+    "sunny": "https://media.giphy.com/media/3o6ozgD5lrJfGZQgiQ/giphy.gif",
+    "clouds": "https://media.giphy.com/media/uOuiK4F5zZkZ2/giphy.gif",
+    "rain": "https://media.giphy.com/media/l0HlPwMAzh13pcZ20/giphy.gif",
+    "clear": "https://media.giphy.com/media/3o6ozgD5lrJfGZQgiQ/giphy.gif"
+};
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -34,7 +43,7 @@ app.post('/', function (req, res) {
                 wind: {
                     speed: weather.wind.speed
                 },
-                img: `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`,
+                img: forecasts[weather.weather[0].main.toLowerCase()],
                 message: weather.weather[0].main
             };
             res.render('index', {weather: data, error: null});
