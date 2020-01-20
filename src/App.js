@@ -1,21 +1,14 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
-import Day from './components/Day'
+import Day from './components/Day';
+import Hours from './components/Hours';
 
 import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { updateForecastMode } from './actions/index';
 import WeatherModeToggler from './components/WeatherModeToggler';
 
 const mapStateToProps = function (state) {
   return state;
-};
-
-const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({
-      updateForecastMode: updateForecastMode
-  }, dispatch)
 };
 
 class App extends React.Component{
@@ -23,6 +16,7 @@ class App extends React.Component{
   state = {
     city: '',
     weather: [],
+    hourly: [],
     isLoading: false
   };
 
@@ -39,7 +33,7 @@ class App extends React.Component{
     });
 
     e.preventDefault();
-    axios.post('http://localhost:3001/',{
+    axios.post('http://localhost:3001/day',{
       city: this.state.city
     })
     .then((res) => {
@@ -55,11 +49,29 @@ class App extends React.Component{
         isLoading: false
       });
     });
+    axios.post('http://localhost:3001/hour',{
+      city: this.state.city
+    })
+    .then((res) => {
+      console.log(res.data);
+      this.setState({
+        hourly: res.data.weather,
+        isLoading: false
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      this.setState({
+        isLoading: false
+      });
+    });
   }
 
-  renderForecast = (weather) => {
+  renderForecast = (weather, hourly, mode) => {
     if(weather.length === 0){
       return <div></div>
+    }else if(mode === 'Hourly'){
+      return <Day weather={weather} /> //<Hours hours={hourly} />
     }else{
       return <Day weather={weather} />
     }
@@ -71,7 +83,7 @@ class App extends React.Component{
             ? <div className="spinner-border" role="status">
             <span className="sr-only">Loading...</span>
           </div>
-            : this.renderForecast(this.state.weather);
+            : this.renderForecast(this.state.weather,this.state.hourly,this.props.weatherReducer);
 
     return(
     <div style={{width: '100%', marginTop: '1%'}}>
@@ -93,4 +105,4 @@ class App extends React.Component{
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);

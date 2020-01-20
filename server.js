@@ -24,10 +24,9 @@ app.get('/', function (req, res) {
     res.send({weather: null, error: null});
 });
 
-app.post('/', function (req, res) {
-    console.log('------------------------------It works--------------------------------')
+app.post('/day', function (req, res) {
+    console.log('------------------------------Day works--------------------------------')
     let city = req.body.city;
-    console.log(req.body)
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`
 
     axios.post(url)
@@ -56,6 +55,41 @@ app.post('/', function (req, res) {
     })
     .catch(function(error){
         console.log(error);
+        res.send({weather: null, error: error});
+    });
+});
+
+app.post('/hour', function (req, res) {
+    console.log('------------------------------Day works--------------------------------')
+    let city = req.body.city;
+    let url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`
+
+    axios.post(url)
+    .then(function(response){
+        console.log(response.data)
+        let weather = response.data;
+        if(weather.main == undefined){
+            res.send({weather: null, error: 'Error, please try again'});
+        } else {
+            
+            //DATA PACKAGE
+            // let data = {
+            //     city: weather.name,
+            //     temp: {
+            //         now: Math.round(weather.main.temp),
+            //         min: Math.round(weather.main.temp_min),
+            //         max: Math.round(weather.main.temp_max)
+            //     },
+            //     wind: {
+            //         speed: weather.wind.speed
+            //     },
+            //     img: forecasts[weather.weather[0].main.toLowerCase()],
+            //     message: weather.weather[0].main
+            // };
+            res.send({weather: weather.list, error: null});
+        }
+    })
+    .catch(function(error){
         res.send({weather: null, error: error});
     });
 });
