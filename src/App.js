@@ -3,6 +3,21 @@ import './App.css';
 import axios from 'axios';
 import Day from './components/Day'
 
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateForecastMode } from './actions/index';
+import WeatherModeToggler from './components/WeatherModeToggler';
+
+const mapStateToProps = function (state) {
+  return state;
+};
+
+const mapDispatchToProps = function (dispatch) {
+  return bindActionCreators({
+      updateForecastMode: updateForecastMode
+  }, dispatch)
+};
+
 class App extends React.Component{
 
   state = {
@@ -53,14 +68,17 @@ class App extends React.Component{
   render(){
 
     let contents = this.state.isLoading
-            ? <p><em>Loading...</em></p>
+            ? <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
             : this.renderForecast(this.state.weather);
 
     return(
-    <div>
-      <h1>
+    <div style={{width: '100%', marginTop: '1%'}}>
+      <WeatherModeToggler weather={this.state.weather} />
+      <h2>
         <center>What city you want the weather for chief?</center>
-      </h1>
+      </h2>
       <div className="container">
       {contents}
         <fieldset>
@@ -75,4 +93,4 @@ class App extends React.Component{
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

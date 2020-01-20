@@ -12,7 +12,8 @@ const forecasts = {
     "sunny": "https://media.giphy.com/media/3o6ozgD5lrJfGZQgiQ/giphy.gif",
     "clouds": "https://media.giphy.com/media/uOuiK4F5zZkZ2/giphy.gif",
     "rain": "https://media.giphy.com/media/l0HlPwMAzh13pcZ20/giphy.gif",
-    "clear": "https://media.giphy.com/media/3o6ozgD5lrJfGZQgiQ/giphy.gif"
+    "clear": "https://media.giphy.com/media/3o6ozgD5lrJfGZQgiQ/giphy.gif",
+    "mist": "https://media.giphy.com/media/dz6Nrk35xWP3q/giphy.gif"
 };
 
 app.use(bodyParser.urlencoded({ extended: true }));

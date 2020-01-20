@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+#navbarSupportedContent{
+  background-color: #fff;
+}
+
+nav.navbar {
+  background-color: #fff !important;
+}
+
+#mode_toggler{
+  padding: 3%;
+  text-align: right;
+  display: block;
+  width: 100%;
+}

@@ -4,23 +4,17 @@ class Day extends React.Component {
     render(){
         return (
             <div>
-                <img src={this.props.weather.img} style={{maxWidth: 300}} />
+                <img src={this.props.weather.img} style={{maxWidth: 300, margin: '4% 0%'}} alt={this.props.weather.message} />
                 <table className="day">
                     <tbody>
-                        <tr>
-                            <td><h2>{this.props.weather.city}</h2></td>
-                        </tr>
                         <tr>
                             <td><h3 style={{margin: '0%'}}>{this.props.weather.message}</h3></td>
                         </tr>
                         <tr>
-                            <td><h3 style={{margin: '0%'}}>Current: {this.props.weather.temp.now}&deg;F</h3></td>
+                            <td><h1 style={{margin: '0%'}}>{this.props.weather.temp.now}&deg;F</h1></td>
                         </tr>
                         <tr>
-                            <td><h3 style={{margin: '0%'}}>Hi: {this.props.weather.temp.max}&deg;F</h3></td>
-                        </tr>
-                        <tr>
-                            <td><h3 style={{margin: '0%'}}>Low: {this.props.weather.temp.min}&deg;F</h3></td>
+                            <td><div style={{margin: '0%'}}><b>{this.props.weather.temp.max}&deg;F</b> / {this.props.weather.temp.min}&deg;F</div></td>
                         </tr>
                     </tbody>
                 </table>
