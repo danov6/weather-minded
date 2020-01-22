@@ -71,7 +71,7 @@ class App extends React.Component{
     if(weather.length === 0){
       return <div></div>
     }else if(mode === 'Hourly'){
-      return <Day weather={weather} /> //<Hours hours={hourly} />
+      return <Hours hourly={hourly} /> //<Hours hours={hourly} />
     }else{
       return <Day weather={weather} />
     }
